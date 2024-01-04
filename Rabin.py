@@ -42,7 +42,7 @@ def rabin_decrypt_block(c, p, q):
 
     return r, s, t, u
 
-def encrypt_ecb(plaintext, p, q, block_size):
+def encrypt_ecb(plaintext: str, p: int, q: int, block_size):
     """
     Encrypts the given plaintext using the Rabin cipher in ECB mode.
 
@@ -56,6 +56,8 @@ def encrypt_ecb(plaintext, p, q, block_size):
         list: A list of encrypted blocks.
 
     """
+    if not plaintext:
+        raise Exception("String cannot be empty")
     ciphertext_blocks = []
     for i in range(0, len(plaintext), block_size):
         block = plaintext[i:i + block_size]
@@ -77,6 +79,8 @@ def decrypt_ecb(ciphertext_blocks, p, q):
         str: The decrypted plaintext.
 
     """
+    if not ciphertext_blocks:
+        raise Exception("Ciphertext blocks cannot be empty.")
     decrypted_text = ""
     for block in ciphertext_blocks:
         decrypted_possibilites = rabin_decrypt_block(block, p, q)
@@ -96,7 +100,7 @@ def decrypt_ecb(ciphertext_blocks, p, q):
     
     return decrypted_text
 
-def encrypt_cbc(plaintext, p, q, block_size, iv_int):
+def encrypt_cbc(plaintext: str, p, q, block_size, iv_int):
     """
     Encrypts the given plaintext using the Rabin cipher in CBC mode.
 
@@ -110,6 +114,8 @@ def encrypt_cbc(plaintext, p, q, block_size, iv_int):
     Returns:
         list: The list of encrypted ciphertext blocks.
     """
+    if not plaintext:
+        raise Exception("Text cannot be empty.")
     ciphertext_blocks = []
     previous_block = iv_int
 
@@ -139,6 +145,8 @@ def decrypt_cbc(ciphertext_blocks, p, q, iv_int):
     Raises:
         None.
     """
+    if not ciphertext_blocks:
+        raise Exception("Cipher blocks cannot be empty.")
     decrypted_text = ""
     previous_block = iv_int
 

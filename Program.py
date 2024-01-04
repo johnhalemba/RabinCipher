@@ -1,4 +1,5 @@
 from Rabin import *
+from Tests import *
 
 def main():
     p = generate_large_prime(32)
@@ -48,8 +49,12 @@ def test_cases():
         mode = "EBC"
         block_size = 4
         plaintext = ""
-        ciphertext_blocks = encrypt_ecb(plaintext, p, q, block_size)
-        decrypted_text = decrypt_ecb(ciphertext_blocks, p, q)
+        try:
+            ciphertext_blocks = encrypt_ecb(plaintext, p, q, block_size)
+            decrypted_text = decrypt_ecb(ciphertext_blocks, p, q)
+        except Exception:
+            print("Exception: String is empty")
+            return
         print("Plaintext:", plaintext)
         print("Ciphertext Blocks:", ciphertext_blocks)
         print("Decrypted Text:", decrypted_text)
