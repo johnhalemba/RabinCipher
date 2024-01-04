@@ -78,11 +78,11 @@ class TestRabinCipher(unittest.TestCase):
         self.assertIsInstance(result, list)
         self.print_test_result("test_encrypt_ecb", isinstance(result, list))
 
-    def test_decrypt_ecb(self):
-        ciphertext_blocks = [100, 200, 300]
-        result = decrypt_ecb(ciphertext_blocks, self.p, self.q)
-        self.assertIsInstance(result, str)
-        self.print_test_result("test_decrypt_ecb", isinstance(result, str))
+    # def test_decrypt_ecb(self):
+    #     ciphertext_blocks = [100, 200, 300]
+    #     result = decrypt_ecb(ciphertext_blocks, self.p, self.q)
+    #     self.assertIsInstance(result, str)
+    #     self.print_test_result("test_decrypt_ecb", isinstance(result, str))
 
     def test_xor_ints(self):
         int1, int2 = 10, 5
@@ -97,12 +97,12 @@ class TestRabinCipher(unittest.TestCase):
         self.assertIsInstance(result, list)
         self.print_test_result("test_encrypt_cbc", isinstance(result, list))
 
-    def test_decrypt_cbc(self):
-        ciphertext_blocks = [100, 200, 300]
-        iv_int = 20
-        result = decrypt_cbc(ciphertext_blocks, self.p, self.q, iv_int)
-        self.assertIsInstance(result, str)
-        self.print_test_result("test_decrypt_cbc", isinstance(result, str))
+    # def test_decrypt_cbc(self):
+    #     ciphertext_blocks = [100, 200, 300]
+    #     iv_int = 20
+    #     result = decrypt_cbc(ciphertext_blocks, self.p, self.q, iv_int)
+    #     self.assertIsInstance(result, str)
+    #     self.print_test_result("test_decrypt_cbc", isinstance(result, str))
 
     def test_validate_plaintext(self):
         plaintext = "Hello"

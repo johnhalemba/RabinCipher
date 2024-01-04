@@ -58,6 +58,7 @@ def encrypt_ecb(plaintext: str, p: int, q: int, block_size):
     """
     if not plaintext:
         raise Exception("String cannot be empty")
+    plaintext = pkcs7_pad(plaintext.encode(), block_size)  # Pad and then encode the plaintext
     ciphertext_blocks = []
     for i in range(0, len(plaintext), block_size):
         block = plaintext[i:i + block_size]
@@ -98,7 +99,7 @@ def decrypt_ecb(ciphertext_blocks, p, q):
         if not valid_decryption_found:
             decrypted_text += "[Undecodable Block]"
     
-    return decrypted_text
+    return pkcs7_unpad(decrypted_text.encode()).decode()
 
 def encrypt_cbc(plaintext: str, p, q, block_size, iv_int):
     """
@@ -116,6 +117,7 @@ def encrypt_cbc(plaintext: str, p, q, block_size, iv_int):
     """
     if not plaintext:
         raise Exception("Text cannot be empty.")
+    plaintext = pkcs7_pad(plaintext.encode(), block_size)  # Pad and then encode the plaintext
     ciphertext_blocks = []
     previous_block = iv_int
 
@@ -166,4 +168,4 @@ def decrypt_cbc(ciphertext_blocks, p, q, iv_int):
 
         if decrypted_text_piece == "":
             decrypted_text += "[Undecodable Block]"
-    return decrypted_text
+    return pkcs7_unpad(decrypted_text.encode()).decode()

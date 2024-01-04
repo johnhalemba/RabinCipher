@@ -11,8 +11,9 @@ def string_to_int(s):
     Returns:
     int: The integer representation of the string.
     """
-    return int.from_bytes(s.encode(), 'big')
-
+    if isinstance(s, str):
+        s = s.encode()
+    return int.from_bytes(s, 'big')
 def int_to_string(i):
     """
     Converts an integer to a string representation.
@@ -147,3 +148,14 @@ def get_plaintext():
                 print(f"Error: {e}")
         else:
             print("Invalid choice. Please enter 'y' or 'n'.")
+
+def pkcs7_pad(data, block_size):
+    padding_len = block_size - (len(data) % block_size)
+    padding = bytes([padding_len] * padding_len)
+    return data + padding
+
+def pkcs7_unpad(data):
+    padding_len = data[-1]
+    if padding_len > len(data):
+        raise ValueError("Invalid padding")
+    return data[:-padding_len]
