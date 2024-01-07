@@ -1,7 +1,7 @@
 from math import sqrt
 from random import randrange
 
-def string_to_int(s):
+def string_to_int(s: str) -> int:
     """
     Converts a string to an integer representation.
 
@@ -16,7 +16,7 @@ def string_to_int(s):
     if isinstance(s, str):
         s = s.encode()
     return int.from_bytes(s, 'big')
-def int_to_string(i):
+def int_to_string(i: int) -> str:
     """
     Converts an integer to a string representation.
 
@@ -30,7 +30,7 @@ def int_to_string(i):
         return i.to_bytes((i.bit_length() + 7) // 8, 'big').decode()
     except ValueError:
         raise ValueError("Invalid integer for conversion.")
-def is_prime(n):
+def is_prime(n : int) -> bool:
     """
     Check if a number is prime.
 
@@ -52,7 +52,7 @@ def is_prime(n):
             return False
     return True
 
-def generate_large_prime(key_size):
+def generate_large_prime(key_size: int) -> int:
     """
     Generates a large prime number of the specified key size.
 
@@ -67,7 +67,7 @@ def generate_large_prime(key_size):
         if n % 4 == 3 and is_prime(n):
             return n
         
-def extended_gcd(a,b):
+def extended_gcd(a: int,b: int) -> tuple[int, int, int]:
     """
     Calculates the extended greatest common divisor (gcd) of two integers.
 
@@ -85,7 +85,7 @@ def extended_gcd(a,b):
     y = x1
     return gcd, x, y
 
-def modular_inverse(a, m):
+def modular_inverse(a: int, m: int) -> int:
     """
     Calculates the modular inverse of a number 'a' modulo 'm'.
 
@@ -105,7 +105,7 @@ def modular_inverse(a, m):
     else:
         return x % m
     
-def xor_ints(int1, int2):
+def xor_ints(int1: int, int2: int) -> int:
     """ XOR two integers.
 
     Args:
@@ -117,7 +117,7 @@ def xor_ints(int1, int2):
     """
     return int1 ^ int2
 
-def validate_plaintext(plaintext):
+def validate_plaintext(plaintext: str) -> None:
     """
     Validates the plaintext input.
 
@@ -131,7 +131,7 @@ def validate_plaintext(plaintext):
     if not plaintext:
         raise ValueError("Plaintext cannot be empty.")
 
-def read_plaintext_from_file(file_path, encoding='utf-8'):
+def read_plaintext_from_file(file_path: str, encoding: str='utf-8') -> str:
     """
     Read plaintext from a file.
 
@@ -155,7 +155,7 @@ def read_plaintext_from_file(file_path, encoding='utf-8'):
 
     return plaintext
 
-def get_plaintext():
+def get_plaintext() -> str:
     """
     Prompts the user to provide the plaintext string either from the console or from a file.
 
@@ -186,7 +186,7 @@ def get_plaintext():
         else:
             print("Invalid choice. Please enter 'y' or 'n'.")
 
-def pkcs7_pad(data, block_size):
+def pkcs7_pad(data: bytes, block_size: int):
     """
     Pads the given data using PKCS7 padding scheme.
 
@@ -201,7 +201,7 @@ def pkcs7_pad(data, block_size):
     padding = bytes([padding_len] * padding_len)
     return data + padding
 
-def pkcs7_unpad(data):
+def pkcs7_unpad(data: bytes) -> bytes:
     """
     Removes PKCS7 padding from the given data.
 

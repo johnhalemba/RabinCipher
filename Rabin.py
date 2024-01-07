@@ -19,7 +19,7 @@ def rabin_encrypt_block(m: str, p: int, q: int) -> int:
     n = p * q
     return pow(m, 2, n)
 
-def rabin_decrypt_block(c, p, q):
+def rabin_decrypt_block(c: int, p: int, q: int) -> tuple[int, int, int, int]:
     """
     Decrypts a Rabin cipher block using the given prime numbers p and q.
 
@@ -46,7 +46,7 @@ def rabin_decrypt_block(c, p, q):
 
     return r, s, t, u
 
-def encrypt_ecb(plaintext: str, p: int, q: int, block_size):
+def encrypt_ecb(plaintext: str, p: int, q: int, block_size: int) -> list[int]:
     """
     Encrypts the given plaintext using the Rabin cipher in ECB mode.
 
@@ -71,7 +71,7 @@ def encrypt_ecb(plaintext: str, p: int, q: int, block_size):
         ciphertext_blocks.append(encrypted_block)
     return ciphertext_blocks
 
-def decrypt_ecb(ciphertext_blocks, p, q):
+def decrypt_ecb(ciphertext_blocks: list[int], p: int, q: int) -> str:
     """
     Decrypts a list of ciphertext blocks using the Rabin cipher in ECB mode.
 
@@ -107,7 +107,7 @@ def decrypt_ecb(ciphertext_blocks, p, q):
     
     return pkcs7_unpad(decrypted_text.encode()).decode()
 
-def encrypt_cbc(plaintext: str, p, q, block_size, iv_int):
+def encrypt_cbc(plaintext: str, p: int, q: int, block_size: int, iv_int: int) -> list[int]:
     """
     Encrypts the given plaintext using the Rabin cipher in CBC mode.
 
@@ -137,7 +137,7 @@ def encrypt_cbc(plaintext: str, p, q, block_size, iv_int):
 
     return ciphertext_blocks
 
-def decrypt_cbc(ciphertext_blocks, p, q, iv_int):
+def decrypt_cbc(ciphertext_blocks: list[int], p: int, q: int, iv_int: int):
     """
     Decrypts a list of ciphertext blocks using the Rabin cipher in CBC mode.
 
