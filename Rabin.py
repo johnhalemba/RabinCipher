@@ -1,7 +1,7 @@
 from HelperFunctions import *
 
 
-def rabin_encrypt_block(m, p, q):
+def rabin_encrypt_block(m: str, p: int, q: int) -> int:
     """
     Encrypts a block of plaintext using the Rabin cipher.
 
@@ -14,6 +14,8 @@ def rabin_encrypt_block(m, p, q):
         int: The encrypted ciphertext block.
 
     """
+    if not (is_prime(p) and is_prime(q)):
+        raise ValueError("p and q must be prime numbers")
     n = p * q
     return pow(m, 2, n)
 
@@ -29,6 +31,8 @@ def rabin_decrypt_block(c, p, q):
     Returns:
         tuple: A tuple containing four possible plaintext values (r, s, t, u).
     """
+    if not all(isinstance(x, int) for x in [c, p, q]):
+        raise TypeError("c, p and q must be integers.")
     n = p * q
     mp = pow(c, (p + 1) // 4, p)
     mq = pow(c, (q + 1) // 4, q)
@@ -94,6 +98,8 @@ def decrypt_ecb(ciphertext_blocks, p, q):
                 valid_decryption_found = True
                 break
             except UnicodeDecodeError:
+                continue
+            except ValueError:
                 continue
         
         if not valid_decryption_found:
@@ -164,6 +170,8 @@ def decrypt_cbc(ciphertext_blocks, p, q, iv_int):
                 previous_block = block  # Update previous block to current ciphertext block
                 break
             except UnicodeDecodeError:
+                continue
+            except ValueError:
                 continue
 
         if decrypted_text_piece == "":

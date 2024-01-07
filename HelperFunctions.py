@@ -11,6 +11,8 @@ def string_to_int(s):
     Returns:
     int: The integer representation of the string.
     """
+    if not isinstance(s, (str, bytes)):
+        raise TypeError("Input must be a string or bytes.")
     if isinstance(s, str):
         s = s.encode()
     return int.from_bytes(s, 'big')
@@ -24,8 +26,10 @@ def int_to_string(i):
     Returns:
     str: The string representation of the integer.
     """
-    return i.to_bytes((i.bit_length() + 7) // 8, 'big').decode()
-
+    try:
+        return i.to_bytes((i.bit_length() + 7) // 8, 'big').decode()
+    except ValueError:
+        raise ValueError("Invalid integer for conversion.")
 def is_prime(n):
     """
     Check if a number is prime.
@@ -114,10 +118,33 @@ def xor_ints(int1, int2):
     return int1 ^ int2
 
 def validate_plaintext(plaintext):
+    """
+    Validates the plaintext input.
+
+    Args:
+        plaintext (str): The plaintext to be validated.
+
+    Raises:
+        ValueError: If the plaintext is empty.
+
+    """
     if not plaintext:
         raise ValueError("Plaintext cannot be empty.")
 
 def read_plaintext_from_file(file_path, encoding='utf-8'):
+    """
+    Read plaintext from a file.
+
+    Args:
+        file_path (str): The path to the file.
+        encoding (str, optional): The encoding of the file. Defaults to 'utf-8'.
+
+    Returns:
+        str: The plaintext read from the file.
+
+    Raises:
+        Exception: If the file is not found or there is an error reading the file.
+    """
     try:
         with open(file_path, 'r', encoding=encoding) as f:
             plaintext = f.read()
@@ -129,6 +156,16 @@ def read_plaintext_from_file(file_path, encoding='utf-8'):
     return plaintext
 
 def get_plaintext():
+    """
+    Prompts the user to provide the plaintext string either from the console or from a file.
+
+    Returns:
+        str: The plaintext string entered by the user or read from a file.
+
+    Raises:
+        ValueError: If the entered plaintext string is empty.
+        Exception: If there is an error reading the plaintext from the file.
+    """
     while True:
         choice = input("Do you want to provide the plaintext string from the console? If no, you will have to provide filepath (y/n): ").lower()
         if choice == 'y':
@@ -150,11 +187,33 @@ def get_plaintext():
             print("Invalid choice. Please enter 'y' or 'n'.")
 
 def pkcs7_pad(data, block_size):
+    """
+    Pads the given data using PKCS7 padding scheme.
+
+    Args:
+        data (bytes): The data to be padded.
+        block_size (int): The block size in bytes.
+
+    Returns:
+        bytes: The padded data.
+    """
     padding_len = block_size - (len(data) % block_size)
     padding = bytes([padding_len] * padding_len)
     return data + padding
 
 def pkcs7_unpad(data):
+    """
+    Removes PKCS7 padding from the given data.
+
+    Args:
+        data (bytes): The data to remove padding from.
+
+    Returns:
+        bytes: The data with padding removed.
+
+    Raises:
+        ValueError: If the padding is invalid.
+    """
     padding_len = data[-1]
     if padding_len > len(data):
         raise ValueError("Invalid padding")

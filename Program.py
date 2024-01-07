@@ -40,7 +40,7 @@ def test_cases():
     print("Test 8: Plaintext consists of extended ASCI : '!Mąę'")
     print("Test 9: Plaintext is single character 'a'")
     
-    test_number = int(input("Enter the option number from 1 up to 10: ").lower())
+    test_number = int(input("Enter the option number from 1 up to 10: "))
     if test_number == 1:
         p = generate_large_prime(32)
         q = generate_large_prime(32)
@@ -174,7 +174,7 @@ def run_program():
     print("2. Check if the all functions are working correctly")
     print("3. List of Test cases which can be perfromed")
 
-    choice = input("Enter the option number (1/2/3): ").lower()
+    choice = input("Enter the option number (1/2/3): ")
 
     if choice == '1':
         main()

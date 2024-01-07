@@ -1,7 +1,7 @@
 import unittest
 from HelperFunctions import *
 from Rabin import *
-
+import rabin
 class TestRabinCipher(unittest.TestCase):
 
     def setUp(self):
