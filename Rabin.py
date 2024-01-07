@@ -13,6 +13,9 @@ def rabin_encrypt_block(m: str, p: int, q: int) -> int:
     Returns:
         int: The encrypted ciphertext block.
 
+    Raises:
+        ValueError: If p or q is not a prime number.
+
     """
     if not (is_prime(p) and is_prime(q)):
         raise ValueError("p and q must be prime numbers")
@@ -151,7 +154,7 @@ def decrypt_cbc(ciphertext_blocks: list[int], p: int, q: int, iv_int: int):
         str: The decrypted plaintext.
 
     Raises:
-        None.
+        Exception: If the cipher blocks are empty.
     """
     if not ciphertext_blocks:
         raise Exception("Cipher blocks cannot be empty.")
